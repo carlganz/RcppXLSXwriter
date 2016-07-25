@@ -3,4 +3,4 @@
 exportPattern("^[[:alpha:]]+")
 import(Rcpp)
 import(methods)
-useDynLib(libxlsxwriter)
+useDynLib(RcppXLSXwriter)

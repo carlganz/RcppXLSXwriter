@@ -2,7 +2,7 @@
 #include <xlsxwriter.h>
 using namespace Rcpp;
 
-//' @useDynLib libxlsxwriter
+//' @useDynLib RcppXLSXwriter
 //' @export
 //' @import Rcpp methods
 // [[Rcpp::export]]

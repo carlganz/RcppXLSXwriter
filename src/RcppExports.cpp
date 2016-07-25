@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // helloworld
 void helloworld(std::string file_, const CharacterMatrix& M, const CharacterVector& t);
-RcppExport SEXP libxlsxwriter_helloworld(SEXP file_SEXP, SEXP MSEXP, SEXP tSEXP) {
+RcppExport SEXP RcppXLSXwriter_helloworld(SEXP file_SEXP, SEXP MSEXP, SEXP tSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< std::string >::type file_(file_SEXP);
