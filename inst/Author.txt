@@ -1,0 +1,1 @@
+The entire libxlsxwriter C library, including all files in the include folder, was written by John McNamara.
