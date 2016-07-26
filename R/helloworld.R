@@ -3,5 +3,5 @@ helloworld <- function(df, file) {
   d <- dim(df)
   M <- as.character(as.matrix(df))
   dim(M) <- d
-  invisible(.Call('libxlsxwriter_helloworld', PACKAGE = 'libxlsxwriter', file, M, title))
+  invisible(.Call('libxlsxwriter_helloworld', PACKAGE = 'RcppXLSXwriter', file, M, title))
 }
