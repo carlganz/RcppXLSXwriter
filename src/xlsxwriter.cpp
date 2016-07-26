@@ -71,16 +71,29 @@ void write(XLSXworksheet *ws,IntegerVector x,IntegerVector y,CharacterMatrix val
   }
 }
 
+void font_color(XLSXformat *format,lxw_color_t color) {
+  format_set_font_color(format->format,color);
+}
+
+void background_color(XLSXformat *format,lxw_color_t color) {
+  format_set_bg_color(format->format,color);
+}
+
+void foreground_color(XLSXformat *format,lxw_color_t color) {
+  format_set_fg_color(format->format,color);
+}
+
+void font_size(XLSXformat *format, int size) {
+  format_set_font_size(format->format,size);
+}
+
+void font_name(XLSXformat *format, std::string font_) {
+  const char *font=font_.c_str();
+  format_set_font_name(format->format,font);
+}
+
 void bold(XLSXformat *format) {
   format_set_bold(format->format);
-}
-
-void red(XLSXformat *format) {
-  format_set_font_color(format->format,LXW_COLOR_RED);
-}
-
-void green(XLSXformat *format) {
-  format_set_font_color(format->format,LXW_COLOR_GREEN);
 }
 
 void italic(XLSXformat *format) {
@@ -107,10 +120,13 @@ RCPP_MODULE(workbook_mod) {
   class_<XLSXformat>("XLSXformat")
     .constructor<XLSXworkbook>()
     .method("bold",&bold)
-    .method("red",&red)
-    .method("green",&green)
     .method("italic",&italic)
     .method("underline",&underline)
+    .method("font_color",&font_color)
+    .method("background_color",&background_color)
+    .method("foreground_color",&foreground_color)
+    .method("font_name",&font_name)
+    .method("font_size",&font_size)
   ;
 }
 
