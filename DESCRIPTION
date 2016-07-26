@@ -11,6 +11,6 @@ Description: Wrapper for the libxlsxwriter C library. Allows for programmatic cu
 License: GPL-3
 LazyData: TRUE
 Imports:
-    Rcpp (>= 0.12.5)
+    Rcpp (>= 0.12.5), methods
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
