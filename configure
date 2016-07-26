@@ -1,1 +1,1 @@
-cd src/libxlsxwriter; make
+cd src/libxlsxwriter; mkdir lib;make
