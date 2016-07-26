@@ -9,6 +9,7 @@ output: github_document
 This package uses John McNamara's C library [libxlsxwriter](http://libxlsxwriter.github.io/) and [Rcpp](http://www.rcpp.org/) to let R users generate customized XLSX files in R. The [`WriteXLS`](https://cran.r-project.org/web/packages/WriteXLS/index.html) package on CRAN is nice, but it requires Perl, and it isn't flexible enough to allow the user to fully customize their Excel output. 
 
 With `RcppXLSXwriter` you have the ability to customize each and every cell in your XLSX document. 
+
 ## Issues
 
 ### Portability 
