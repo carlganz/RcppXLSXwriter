@@ -10,3 +10,44 @@ With `RcppXLSXwriter` you have the ability to customize each and every cell in y
 ### Portability
 
 So far I have only been able to get the package to build on 32-bit R on Windows.
+
+Usage
+-----
+
+Although `RcppXLSXwriter` only has its bare infrastructure, you still get most of the functionality of libxlsxwriter if you're willing to be verbose.
+
+-   First you must build a workbook with `new(XLSXworkbook, *file*)`
+-   Next you bulid a worksheet in the workbook with `new(XLSXworksheet,*workbook*,*sheetname*)`
+-   Now you can write to the worksheet with `write` by specifying the x and y range you want to fill, and then giving a character matrix of the same dimension
+-   You can add formatted content by first creating a format object with `new(XLSXformat,*workbook*)`,adding properties to the format object with its methods, and then passing it to `writef`
+
+Here is a quick example for writing `iris` with bold, exciting header:
+
+``` r
+library(RcppXLSXwriter)
+
+# create workbook
+wb <- new(XLSXworkbook, "newFile.xlsx")
+
+# create worksheet
+ws <- new(XLSXworksheet, wb, "firstSheet")
+
+# create format for title
+titleFmt <- new(XLSXformat, wb)
+
+# set format to font 24, times new roman, bold, underline, and italic
+titleFmt$font_size(24)
+titleFmt$font_name("times new roman")
+titleFmt$bold()
+titleFmt$underline()
+titleFmt$italic()
+
+# write title
+ws$writef(1,seq_len(ncol(iris)),t(as.matrix(names(iris))),titleFmt)
+
+# write data
+ws$write(1+seq_len(nrow(iris)),seq_len(ncol(iris)),as.matrix(iris))
+
+# close
+wb$close()
+```
