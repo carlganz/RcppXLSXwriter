@@ -9,7 +9,7 @@ RCPP_EXPOSED_CLASS(XLSXformat);
 class XLSXworkbook {
 public:
   XLSXworkbook(std::string file_):file(file_) {
-    const char * filec=file.c_str();
+    const char *filec=file.c_str();
     workbook=workbook_new(filec);
   }
 
@@ -17,7 +17,7 @@ public:
   std::string file;
 };
 
-void closewb(XLSXworkbook* wb) {
+void closewb(XLSXworkbook *wb) {
   workbook_close(wb->workbook);
 }
 
@@ -27,14 +27,13 @@ class XLSXworksheet {
 public:
   XLSXworksheet(XLSXworkbook workbook_,std::string sheet_):workbook(workbook_),
   sheet(sheet_) {
-    const char * sheetc=sheet.c_str();
+    const char *sheetc=sheet.c_str();
     worksheet=workbook_add_worksheet(workbook.workbook,sheetc);
   }
 
   XLSXworkbook workbook;
   std::string sheet;
   lxw_worksheet *worksheet;
-
 };
 
 
@@ -48,7 +47,7 @@ public:
   XLSXworkbook workbook;
 };
 
-void writef(XLSXworksheet* ws,IntegerVector x,IntegerVector y,CharacterMatrix value,XLSXformat* format) {
+void writef(XLSXworksheet *ws,IntegerVector x,IntegerVector y,CharacterMatrix value,XLSXformat *format) {
   x=x-1;y=y-1;
   for (int i=0;i<x.size();i++) {
     for (int j=0;j<y.size();j++) {
@@ -60,7 +59,7 @@ void writef(XLSXworksheet* ws,IntegerVector x,IntegerVector y,CharacterMatrix va
   }
 }
 
-void write(XLSXworksheet* ws,IntegerVector x,IntegerVector y,CharacterMatrix value) {
+void write(XLSXworksheet *ws,IntegerVector x,IntegerVector y,CharacterMatrix value) {
   x=x-1;y=y-1;
   for (int i=0;i<x.size();i++) {
     for (int j=0;j<y.size();j++) {
@@ -88,7 +87,7 @@ void italic(XLSXformat *format) {
   format_set_italic(format->format);
 }
 
-void underline(XLSXformat*format) {
+void underline(XLSXformat *format) {
   format_set_underline(format->format, LXW_UNDERLINE_SINGLE);
 }
 
