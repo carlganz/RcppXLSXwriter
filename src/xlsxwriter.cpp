@@ -59,7 +59,8 @@ void writef(XLSXworksheet *ws,IntegerVector x,IntegerVector y,CharacterMatrix va
   }
 }
 
-void write(XLSXworksheet *ws,IntegerVector x,IntegerVector y,CharacterMatrix value) {
+void write(XLSXworksheet *ws,IntegerVector x_,IntegerVector y_,CharacterMatrix value) {
+  IntegerVector x(x_),y(y_);
   x=x-1;y=y-1;
   for (int i=0;i<x.size();i++) {
     for (int j=0;j<y.size();j++) {
@@ -69,6 +70,20 @@ void write(XLSXworksheet *ws,IntegerVector x,IntegerVector y,CharacterMatrix val
       worksheet_write_string(ws->worksheet,xv,yv,cval,NULL);
     }
   }
+}
+
+void merge_range(XLSXworksheet *worksheet,int first_row, int first_col, int last_row,
+                 int last_col, std::string value_) {
+  const char *value=value_.c_str();
+  worksheet_merge_range(worksheet->worksheet,first_row,first_col,last_row,last_col,
+                        value,NULL);
+}
+
+void merge_rangef(XLSXworksheet *worksheet,int first_row, int first_col, int last_row,
+                 int last_col, std::string value_,XLSXformat *format) {
+  const char *value=value_.c_str();
+  worksheet_merge_range(worksheet->worksheet,first_row,first_col,last_row,last_col,
+                        value,format->format);
 }
 
 void font_color(XLSXformat *format,lxw_color_t color) {
@@ -104,6 +119,57 @@ void underline(XLSXformat *format) {
   format_set_underline(format->format, LXW_UNDERLINE_SINGLE);
 }
 
+void set_border(XLSXformat *format) {
+  format_set_border(format->format,LXW_BORDER_THIN);
+}
+
+void set_bottom(XLSXformat *format) {
+  format_set_bottom(format->format,LXW_BORDER_THIN);
+}
+
+void set_top(XLSXformat *format) {
+  format_set_top(format->format,LXW_BORDER_THIN);
+}
+
+void set_left(XLSXformat *format) {
+  format_set_left(format->format,LXW_BORDER_THIN);
+}
+
+void set_right(XLSXformat *format) {
+  format_set_right(format->format,LXW_BORDER_THIN);
+}
+
+void set_border_color(XLSXformat *format,lxw_color_t color) {
+  format_set_border_color(format->format,color);
+}
+
+void set_bottom_color(XLSXformat *format,lxw_color_t color) {
+  format_set_bottom_color(format->format,color);
+}
+
+void set_top_color(XLSXformat *format,lxw_color_t color) {
+  format_set_top_color(format->format,color);
+}
+
+void set_left_color(XLSXformat *format,lxw_color_t color) {
+  format_set_left_color(format->format,color);
+}
+
+void set_right_color(XLSXformat *format,lxw_color_t color) {
+  format_set_right_color(format->format,color);
+}
+
+void font_strikeout(XLSXformat *format) {
+  format_set_font_strikeout(format->format);
+}
+
+void num_format(XLSXformat *format, std::string num_format_) {
+  const char *num_format=num_format_.c_str();
+  format_set_num_format(format->format,num_format);
+}
+
+
+
 RCPP_MODULE(workbook_mod) {
   class_<XLSXworkbook>("XLSXworkbook")
 
@@ -116,6 +182,8 @@ RCPP_MODULE(workbook_mod) {
     .field_readonly("sheet",&XLSXworksheet::sheet,"Sheet name")
     .method("write",&write,"Write to XLSX file without formatting. Use a matrix.")
     .method("writef",&writef,"Write to XLSX file with formatting. Use a matrix.")
+    .method("merge",&merge_range,"Merge cells then write without formatting. Use a matrix.")
+    .method("mergef",&merge_rangef,"Merge cells then write with formatting. Use a matrix.")
   ;
   class_<XLSXformat>("XLSXformat")
     .constructor<XLSXworkbook>()
@@ -127,6 +195,18 @@ RCPP_MODULE(workbook_mod) {
     .method("foreground_color",&foreground_color,"Foreground color formatting")
     .method("font_name",&font_name,"Font name formatting")
     .method("font_size",&font_size,"Font size formatting")
+    .method("full_border",&set_border,"Full border formatting")
+    .method("top_border",&set_top,"Top border formatting")
+    .method("bottom_border",&set_bottom,"Bottom border formatting")
+    .method("left_border",&set_left,"Left border formatting")
+    .method("right_border",&set_right,"Right border formatting")
+    .method("num_format",&num_format,"Number formatting")
+    .method("strikeout",&font_strikeout,"Font strikeout formatting")
+    .method("full_border_color",&set_border_color,"Full border color formatting")
+    .method("top_border_color",&set_top_color,"Top border color formatting")
+    .method("bottom_border_color",&set_bottom_color,"Bottom border color formatting")
+    .method("left_border_color",&set_left_color,"Left border color formatting")
+    .method("right_border_color",&set_right_color,"Right border color formatting")
   ;
 }
 
