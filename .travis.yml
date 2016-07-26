@@ -6,3 +6,11 @@ cache: packages
 
 git:
   submodules: true
+
+os:
+  - linux
+  - osx
+
+compiler:
+  - gcc
+  - clang
