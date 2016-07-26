@@ -108,25 +108,25 @@ RCPP_MODULE(workbook_mod) {
   class_<XLSXworkbook>("XLSXworkbook")
 
   .constructor<std::string>()
-  .method("close",&closewb)
-  .field_readonly("file",&XLSXworkbook::file)
+  .method("close",&closewb,"Creates XLSX file")
+  .field_readonly("file",&XLSXworkbook::file,"File name")
 ;
   class_<XLSXworksheet>("XLSXworksheet")
     .constructor<XLSXworkbook,std::string>()
-    .field_readonly("sheet",&XLSXworksheet::sheet)
-    .method("write",&write)
-    .method("writef",&writef)
+    .field_readonly("sheet",&XLSXworksheet::sheet,"Sheet name")
+    .method("write",&write,"Write to XLSX file without formatting. Use a matrix.")
+    .method("writef",&writef,"Write to XLSX file with formatting. Use a matrix.")
   ;
   class_<XLSXformat>("XLSXformat")
     .constructor<XLSXworkbook>()
-    .method("bold",&bold)
-    .method("italic",&italic)
-    .method("underline",&underline)
-    .method("font_color",&font_color)
-    .method("background_color",&background_color)
-    .method("foreground_color",&foreground_color)
-    .method("font_name",&font_name)
-    .method("font_size",&font_size)
+    .method("bold",&bold,"Bold formatting")
+    .method("italic",&italic,"Italic formatting")
+    .method("underline",&underline,"Underline formatting")
+    .method("font_color",&font_color,"Font color formatting")
+    .method("background_color",&background_color,"Background color formatting")
+    .method("foreground_color",&foreground_color,"Foreground color formatting")
+    .method("font_name",&font_name,"Font name formatting")
+    .method("font_size",&font_size,"Font size formatting")
   ;
 }
 
