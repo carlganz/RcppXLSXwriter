@@ -14,7 +14,3 @@ os:
 compiler:
   - gcc
   - clang
-
-script:
-  - cd src/libxlsxwriter
-  - make
